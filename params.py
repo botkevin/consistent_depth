@@ -47,9 +47,9 @@ class Video3dParamsParser:
         # K: (1) (2)
         self.parser.add_argument("--save_model", default=None,
             help="path to save the model params. None if no save")
-        self.parser.add_argument("--no_finetune", action="storeTrue",
-            help="flag to disable finetuning, use loaded model."
-        self.parser.add_argument("--load_model", default=None
+        self.parser.add_argument("--no_finetune", action="store_true",
+            help="flag to disable finetuning, use loaded model.")
+        self.parser.add_argument("--load_model", default=None,
             help="path to save the model params. None if no save") # TODO: come back to this
 
     def add_video_args(self):
