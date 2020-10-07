@@ -35,7 +35,7 @@ class DatasetProcessor:
         print_banner("Extracting frames")
         self.video.extract_frames()
 
-    def pipeline(self, params):
+    def pipeline(self, params): # K: this is what we are looking for. This is where the work gets done
         self.extract_frames(params)
 
         print_banner("Downscaling frames (raw)")
@@ -54,7 +54,7 @@ class DatasetProcessor:
 
         print_banner("Compute initial depth")
 
-        ft = DepthFineTuner(self.out_dir, frames, params)
+        ft = DepthFineTuner(self.out_dir, frames, params) # K: we want to take a look at this for finetuning
         initial_depth_dir = pjoin(self.path, f"depth_{params.model_type}")
         if not self.video.check_frames(pjoin(initial_depth_dir, "depth"), "raw"):
             ft.save_depth(initial_depth_dir)
@@ -83,6 +83,9 @@ class DatasetProcessor:
 
         self.flow.visualize_flow(warp=True)
 
+        # K: TODO: add a flag for no finetuning
+        # TODO: be able to save the model parameters (1)
+        # TODO: be able to load the model parameters (2)
         print_banner("Fine-tuning")
 
         ft.fine_tune(writer=self.writer)

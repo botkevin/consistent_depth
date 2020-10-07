@@ -149,7 +149,8 @@ class DepthFineTuner:
         self.checkpoints_dir = pjoin(self.out_dir, "checkpoints")
         os.makedirs(self.checkpoints_dir, exist_ok=True)
 
-        model = get_depth_model(params.model_type)
+        model = get_depth_model(params.model_type) # K: here is where we load model (2)
+        # K: TODO add model load to new saved finetuned model (2.1)
         self.model = model()
 
         num_gpus = torch.cuda.device_count()
@@ -238,7 +239,7 @@ class DepthFineTuner:
         eval_dir = pjoin(self.out_dir, "eval")
         os.makedirs(eval_dir, exist_ok=True)
 
-        self.model.train()
+        self.model.train() # training mode
 
         def suffix(epoch, niters):
             return "_e{:04d}_iter{:06d}".format(epoch, niters)
