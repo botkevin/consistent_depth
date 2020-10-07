@@ -157,7 +157,7 @@ class DepthFineTuner:
         # code to load model
         # this is not good code and breaks abstraction, but quick and dirty for now
         if params.load_model != None:
-            self.model = torch.load(params.load_model)
+            self.model = MannequinChallengeModelLoad(params.load_model)
         else:
             model = get_depth_model(params.model_type)
             self.model = model() # initiates the class

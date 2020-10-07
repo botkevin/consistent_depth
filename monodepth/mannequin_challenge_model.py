@@ -11,6 +11,8 @@ from .mannequin_challenge.models import pix2pix_model
 from .mannequin_challenge.options.train_options import TrainOptions
 from .depth_model import DepthModel
 
+# to remove 'module.'
+from collections import OrderedDict
 
 class MannequinChallengeModel(DepthModel):
     # Requirements and default settings
@@ -101,7 +103,15 @@ class MannequinChallengeModelLoad(DepthModel):
             def load_network(self, network, network_label, epoch_label):
                 # check for which model it is loading
                 print ("Loading ", model_file) 
-                return torch.load(model_file)
+                # K: we are changing here to load
+                # problem with 'module.' in front of ordered dict because of nn.DataParallel
+                # https://discuss.pytorch.org/t/solved-keyerror-unexpected-key-module-encoder-embedding-weight-in-state-dict/1686/3
+                state_dict = torch.load(model_file)
+                new_state_dict = OrderedDict()
+                for k, v in state_dict.items():
+                    name = k[7:] # remove `module.`
+                    new_state_dict[name] = v
+                return new_state_dict
 
         with SuppressedStdout():
             self.model = FixedMcModel(params)

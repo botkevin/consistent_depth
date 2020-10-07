@@ -5,6 +5,7 @@ import logging
 import os
 from os.path import join as pjoin
 import shutil
+import torch
 
 from depth_fine_tuning import DepthFineTuner
 from flow import Flow
@@ -92,7 +93,7 @@ class DatasetProcessor:
             ft.fine_tune(writer=self.writer)
             
         if params.save_model != None:
-            torch.save(ft.model, params.save_model)
+            ft.model.save(params.save_model)
 
         print_banner("Compute final depth")
 
