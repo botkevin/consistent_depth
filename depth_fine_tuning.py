@@ -24,6 +24,8 @@ from loss.loss_params import LossParams
 from utils import image_io, visualization
 from utils.torch_helpers import to_device
 
+# added new class
+from monodepth.mannequin_challenge_model import MannequinChallengeModelLoad
 
 class DepthFineTuningParams:
     """Options about finetune parameters.
@@ -150,14 +152,15 @@ class DepthFineTuner:
         os.makedirs(self.checkpoints_dir, exist_ok=True)
 
         
-        model = get_depth_model(params.model_type) # K: here is where we load model (2)
+         # K: here is where we load model (2)
         # K: TODO add model load to new saved finetuned model (2.1)
-        self.model = model() # initiates the class
         # code to load model
         # this is not good code and breaks abstraction, but quick and dirty for now
         if params.load_model != None:
-            self.model.model = torch.load(params.load_model)
-
+            self.model = torch.load(params.load_model)
+        else:
+            model = get_depth_model(params.model_type)
+            self.model = model() # initiates the class
 
         num_gpus = torch.cuda.device_count()
         print(f"Using {num_gpus} GPUs.")

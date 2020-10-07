@@ -92,7 +92,7 @@ class DatasetProcessor:
             ft.fine_tune(writer=self.writer)
             
         if params.save_model != None:
-            ft.model.save(params.save_model)
+            torch.save(ft.model, params.save_model)
 
         print_banner("Compute final depth")
 
