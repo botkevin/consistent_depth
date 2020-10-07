@@ -86,9 +86,13 @@ class DatasetProcessor:
         # K: TODO: add a flag for no finetuning
         # TODO: be able to save the model parameters (1)
         # TODO: be able to load the model parameters (2)
-        print_banner("Fine-tuning")
+        if not params.no_finetune:
+            print_banner("Fine-tuning")
 
-        ft.fine_tune(writer=self.writer)
+            ft.fine_tune(writer=self.writer)
+            
+        if params.save_model != None:
+            ft.model.save(params.save_model)
 
         print_banner("Compute final depth")
 

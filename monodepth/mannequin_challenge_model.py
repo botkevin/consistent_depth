@@ -30,11 +30,14 @@ class MannequinChallengeModel(DepthModel):
             "https://storage.googleapis.com/mannequinchallenge-data/checkpoints/best_depth_Ours_Bilinear_inc_3_net_G.pth",
             "mc.pth"
         )
+        # TODO: change this above to load which model_file you would like
 
         class FixedMcModel(pix2pix_model.Pix2PixModel):
             # Override the load function, so we can load the snapshot stored
             # in our specific location.
             def load_network(self, network, network_label, epoch_label):
+                # check for which model it is loading
+                print ("Loading ", model_file) 
                 return torch.load(model_file)
 
         with SuppressedStdout():

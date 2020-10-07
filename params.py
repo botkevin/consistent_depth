@@ -38,7 +38,19 @@ class Video3dParamsParser:
         self.add_fine_tuning_args()
         self.add_make_video_args()
 
+        # K: (1) (2)
+        self.add_save_load_model_args()
+
         self.initialized = True
+
+    def add_save_load_model_args(self):
+        # K: (1) (2)
+        self.parser.add_argument("--save_model", default=None,
+            help="path to save the model params. None if no save")
+        self.parser.add_argument("--no_finetune", action="storeTrue",
+            help="flag to disable finetuning, use loaded model."
+        self.parser.add_argument("--load_model", default=None
+            help="path to save the model params. None if no save") # TODO: come back to this
 
     def add_video_args(self):
         self.parser.add_argument("--size", type=int, default=384,
