@@ -91,7 +91,8 @@ class DatasetProcessor:
             print_banner("Fine-tuning")
 
             ft.fine_tune(writer=self.writer)
-            
+        
+        # added save_model param
         if params.save_model != None:
             ft.model.save(params.save_model)
 
