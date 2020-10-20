@@ -132,11 +132,10 @@ def make_video(
             ffmpeg,
             "-r", "30",
             "-i", frame_fmt,
-            "-vcodec", "mpeg4", # change here, libx264 to mpeg4, can't get libx264 to run with ffmpeg
+            "-vcodec", "libx264", 
             "-pix_fmt", "yuv420p",
             "-crf", str(crf),
             "-vf", "pad=ceil(iw/2)*2:ceil(ih/2)*2",
-            "-vb", "80M", # added this to raise mpeg4 quality
             out_fn,
         ]
         print(subprocess.run(cmd, check=True))

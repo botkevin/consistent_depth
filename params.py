@@ -39,9 +39,14 @@ class Video3dParamsParser:
         self.add_make_video_args()
 
         # K: (1) (2)
+        self.add_fragment_args()
         self.add_save_load_model_args()
 
         self.initialized = True
+
+    def add_fragment_args(self):
+        self.parser.add_argument("--fragment", action="store_true",
+            help="flag to enable fragmented causal testing")
 
     def add_save_load_model_args(self):
         # K: (1) (2)

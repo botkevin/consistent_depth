@@ -110,11 +110,12 @@ class Video:
         if frames is None:
             frames = range(self.frame_count)
 
-        if len(files) != len(frames):
-            sys.exit(
-                "ERROR: expected to find %d files but found %d in '%s'"
-                % (self.frame_count, len(files), frame_dir)
-            )
+        # TODO: fix this
+        # if len(files) != len(frames):
+        #     sys.exit(
+        #         "ERROR: expected to find %d files but found %d in '%s'"
+        #         % (self.frame_count, len(files), frame_dir)
+        #     )
         for i in frames:
             frame_file = "%s/frame_%06d.%s" % (frame_dir, i, extension)
             if not os.path.exists(frame_file):
